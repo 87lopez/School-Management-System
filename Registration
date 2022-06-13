@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+	<title> Registration Page </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+<?php
+session_start();
+	include 'master.php';
+	include 'server.php';
+	include 'functions.php';
+
+	if($_SERVER['REQUEST_METHOD'] == "POST")
+	{
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$firstName = $_POST['firstName'];
+		$LastName = $_POST['LastName'];
+		$address = $_POST['address'];
+		$phone = $_POST['phone'];
+		
+		if(!empty($email) && !empty($password) && !empty($firstName) && !empty($LastName) && !empty($address) && !empty($phone))
+		{
+			$query = "insert into tblstudent (email,password,firstName,LastName,address,phone) values('$email','$password','$firstName','$LastName','$address','$phone')";
+			
+			mysqli_query($conn, $query);
+			
+			header("Location: Login.php");
+			die;
+		}else
+		{
+			echo "Please fill out all the fields!";
+		}
+	}
+?>
+
+
+
+	<div class="container text-center";>
+	<hl>Welcome To The Registration Page</hl>
+	</div>
+	
+	<form method="POST">
+		<table border = "2" align = "center">
+	
+			<tr>
+				<td>
+				<label>Email : </label></td>
+				<td><input type="email" name="email"required></td>
+			</tr>
+		
+			<tr>
+				<td>
+				<label>Password : </label></td>
+				<td><input type="password" name="password"required></td>
+			</tr>
+		
+			<tr>
+				<td>
+				<label>First Name : </label></td>
+				<td><input type="text" name="firstName"required></td>
+			</tr>
+		
+			<tr>
+				<td>
+				<label>Last Name : </label></td>
+				<td><input type="text" name="LastName"required></td>
+			</tr>
+		
+			<tr>
+				<td>
+				<label>Address : </label></td>
+				<td><input type="text" name="address"required></td>
+			</tr>
+		
+			<tr>
+				<td>
+				<label>Phone number : </label></td>
+				<td><input type="phone" name="phone"required></td>
+			</tr>
+		
+			
+			<tr>
+				<td colspan = "2" align = "center" ><input type = "submit" name = "save" value = "Submit" style = "font-size:20px"></td>
+			</tr>
+		
+		</table>
+	
+	</form>
+	
+	
+	
+<?php include 'footer.php';?>
+</body>
+</html>
